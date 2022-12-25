@@ -1,5 +1,7 @@
 const userModel = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 exports.getLoginPage = (req, res) => {
     return res.render("login", { style: "login", title: "login" });
@@ -22,7 +24,7 @@ exports.postLogin = async (req, res, next) => {
             });
         }
         try {
-            const cmp = user.Password === password;
+            const cmp = await bcrypt.compare(password, user.Password);
             let token;
             if (cmp) {
                 token = jwt.sign(user, process.env.ACCESS_TOKEN_SECURE, {
@@ -60,10 +62,12 @@ exports.postRegister = async (req, res) => {
     const { username, password, fullname, address } = req.body;
     let token = " ";
 
+    const passHashed = await bcrypt.hashSync(password, saltRounds);
+
     const isUsernameExist = await userModel.getUserByUsername(username);
     const newUser = {
         username,
-        password,
+        password: passHashed,
         fullname,
         token,
         address,

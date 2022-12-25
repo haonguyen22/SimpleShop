@@ -4,11 +4,11 @@ const { engine } = require("express-handlebars");
 
 const homeRouter = require("./routers/homeRouter.js");
 const categoryRouter = require("./routers/categoryRouter.js");
-const productRouter = require("./routers/productRouter.js");
 
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const auth = require("./middlewares/auth.js");
 require("dotenv").config();
 
 const app = express();
@@ -38,11 +38,10 @@ app.engine(".hbs", engine({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 app.set("views", "./views");
 
-app.use("/", homeRouter);
+app.use("/", auth,  homeRouter);
 
-app.use("/category", categoryRouter);
+app.use("/category", auth, categoryRouter);
 
-app.use("/product", productRouter);
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);
