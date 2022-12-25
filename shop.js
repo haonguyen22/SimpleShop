@@ -1,8 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { engine } = require("express-handlebars");
-const userRouter = require("./routers/userRouter.js");
+
 const homeRouter = require("./routers/homeRouter.js");
+const categoryRouter = require("./routers/categoryRouter.js");
+const productRouter = require("./routers/productRouter.js");
+
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -20,7 +23,7 @@ app.use(
         secret: "this is a super secret session sign in string",
         resave: true,
         saveUninitialized: true,
-        cookie: { maxAge: 8 * 60 * 60 * 1000 },
+        cookie: { maxAge: 10 * 60 * 60 * 1000 },
     }),
 );
 app.use(cookieParser());
@@ -37,7 +40,9 @@ app.set("views", "./views");
 
 app.use("/", homeRouter);
 
-// app.use("/user", userRouter);
+app.use("/category", categoryRouter);
+
+app.use("/product", productRouter);
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);

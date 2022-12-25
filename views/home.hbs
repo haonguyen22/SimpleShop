@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-12">
+        <div class="header d-flex justify-content-between bg-info align-items-center p-3 rounded-1">
+            <h2><a href="/" class="text-decoration-none ">HOME</a></h2>
+            <div class="d-flex align-item-center">
+
+                <div class="dropdown ms-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        {{#if category}} {{{category.CategoryName}}} {{else}}Chọn thể loại{{/if}}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/">Xem tất cả</a></li>
+                        {{#each categories}}
+                        <li><a class="dropdown-item" href="/category/{{CategoryID}}">{{{CategoryName}}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="header">
+            <table class="table table-striped col-12 mt-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th width="10%" style="text-align: center;">#</th>
+                        <th width="30%">Tên sản phẩm</th>
+                        <th width="20%" style="text-align: center;">Chi phí</th>
+                        <th width="10%" style="text-align: center;">Số lượng</th>
+                        <th width="10%" style="text-align: center;"></th>
+                        <th width="2%" style="text-align: center; vertical-align: middle;">
+                        </th>
+                    </tr>
+                </thead>
+                {{#if products.pageTotal}}
+                <tbody class="table-group-divider">
+                    {{#if products.data}}
+                    {{#each products.data}}
+                    <tr>
+                        <th scope="row" style="text-align: center; vertical-align: middle;">{{{ProductID}}}</th>
+                        <td style="vertical-align: middle;">{{{ProductName}}}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{{UnitPrice}}}</td>
+                        <td style="text-align: center; vertical-align: middle;">{{{UnitsInStock}}}</td>
+                        <td style="text-align: center; vertical-align: right;">
+                            <input step="1" value="1" type="number" id="typeNumber" class="form-control" placeholder="Số lượng.."
+                                min="0" max="{{UnitsInStock}}" onKeyUp="if(this.value>{{UnitsInStock}}){this.value={{UnitsInStock}};}else if(this.value
+                            <0){this.value='0';}" />
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <button type="submit" class="border-none bg-transparent"><i
+                                    class="bi bi-plus-circle-fill p-0 fs-4"></i></button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{else}}
+                    <tr>
+                        <td colspan="5">
+                            <div class="text-center">Không còn sản phẩm nào ở trang {{{page}}} </div>
+                        </td>
+                    </tr>
+                    {{/if}}
+                </tbody>
+                {{else}}
+                <tr>
+                    <td colspan="5">
+                        <div class="text-center">Không có sản phẩm nào </div>
+                    </td>
+                </tr>
+                {{/if}}
+            </table>
+            <nav aria-label="Page navigation example">
+                <form action="" method="get">
+                    <ul class="pagination justify-content-center pagination-md">
+                        {{#time products.pageTotal}}
+                        {{#ifEqual ../page this }}
+                        <li class="page-item active"><button class="page-link" name="page"
+                                value="{{this}}">{{{this}}}</button></li>
+                        {{/ifEqual}}
+                        {{#ifNotEqual ../page this }}
+                        <li class="page-item"><button class="page-link" name="page" value="{{this}}">{{{this}}}</button>
+                        </li>
+                        {{/ifNotEqual}}
+                        {{/time}}
+                    </ul>
+                </form>
+            </nav>
+        </div>
+    </div>
+</div>
+<script src="/js/index.js"></script>
