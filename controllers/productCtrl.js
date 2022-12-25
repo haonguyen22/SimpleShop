@@ -9,6 +9,7 @@ exports.getProductByCategoryID = async (req, res) => {
     const products = await productModel.getAllProductsByCategoryID(CategoryID, page);
     const category = await categoryModel.getCategoryByID(CategoryID);
     const categories = await categoryModel.getAllCategories();
-
-    res.render("home", { helpers: hps, category, categories, products, page, title: category.CatName });
+    
+    res.render("home", { helpers: hps, category, categories, products, page, title: category.CategoryName });
 };
+

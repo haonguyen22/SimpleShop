@@ -101,3 +101,4 @@ exports.logOut = (req, res, next) => {
     res.cookie("token", "", { maxAge: 1 });
     return res.redirect("login");
 };
+

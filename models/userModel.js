@@ -31,7 +31,7 @@ module.exports = {
             if (maxId.max === null) {
                 id = 1;
             } else id = parseInt(maxId.max) + 1;
-            
+
             const data = await db.one('Insert into "Users" values ($1, $2, $3, $4, $5, $6)', [
                 id,
                 user.username,
@@ -44,5 +44,5 @@ module.exports = {
         } catch (e) {
             console.log(e);
         }
-    },
+    }
 };

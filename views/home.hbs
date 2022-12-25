@@ -3,9 +3,9 @@
         <div class="header d-flex justify-content-between bg-info align-items-center p-3 rounded-1">
             <h2><a href="/" class="text-decoration-none ">HOME</a></h2>
             <div class="d-flex align-item-center">
-
-                <div class="dropdown ms-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                <a href="#" class="mx-4"><i class="bi bi-cart-check fs-2 text-danger "></i></a>
+                <div class="dropdown ms-2 me-2">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         {{#if category}} {{{category.CategoryName}}} {{else}}Chọn thể loại{{/if}}
                     </button>
                     <ul class="dropdown-menu">
@@ -13,6 +13,17 @@
                         {{#each categories}}
                         <li><a class="dropdown-item" href="/category/{{CategoryID}}">{{{CategoryName}}}</a></li>
                         {{/each}}
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Cài đặt
+                    </button>
+                    <ul class="dropdown-menu">
+                        <form action="https://localhost:3113/user/logout" method="post" class="m-0">
+                            <li><button type="submit" class="dropdown-item">Đăng xuất</button></li>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -31,7 +42,7 @@
                         <th width="20%" style="text-align: center;">Chi phí</th>
                         <th width="10%" style="text-align: center;">Số lượng</th>
                         <th width="10%" style="text-align: center;"></th>
-                        <th width="2%" style="text-align: center; vertical-align: middle;">
+                        <th width="2%" style="text-align: center; vertical-align: middle;"> Thêm
                         </th>
                     </tr>
                 </thead>
@@ -45,13 +56,13 @@
                         <td style="text-align: center; vertical-align: middle;">{{{UnitPrice}}}</td>
                         <td style="text-align: center; vertical-align: middle;">{{{UnitsInStock}}}</td>
                         <td style="text-align: center; vertical-align: right;">
-                            <input step="1" value="1" type="number" id="typeNumber" class="form-control" placeholder="Số lượng.."
-                                min="0" max="{{UnitsInStock}}" onKeyUp="if(this.value>{{UnitsInStock}}){this.value={{UnitsInStock}};}else if(this.value
+                            <input step="1" value="0" type="number" id="typeNumber" class="form-control"
+                                placeholder="Số lượng.." min="0" max="{{UnitsInStock}}" onKeyUp="if(this.value>{{UnitsInStock}}){this.value={{UnitsInStock}};}else if(this.value
                             <0){this.value='0';}" />
                         </td>
                         <td style="text-align: center; vertical-align: middle;">
                             <button type="submit" class="border-none bg-transparent"><i
-                                    class="bi bi-plus-circle-fill p-0 fs-4"></i></button>
+                                    class="bi bi-cart-plus-fill p-0 fs-4 text-danger"></i></button>
                         </td>
                     </tr>
                     {{/each}}

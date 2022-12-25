@@ -42,7 +42,6 @@ app.use("/", auth,  homeRouter);
 
 app.use("/category", auth, categoryRouter);
 
-
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);
 });
